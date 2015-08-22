@@ -11,8 +11,11 @@ import android.support.v7.widget.Toolbar;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.ListView;
+import android.widget.TextView;
+import android.widget.Toast;
 
 
 /**
@@ -45,16 +48,33 @@ public class NavigationDrawerFragment extends Fragment {
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
-        return inflater.inflate(R.layout.fragment_navigation_drawer, container, false);
+        View inflate = inflater.inflate(R.layout.fragment_navigation_drawer, container, false);
+        languageSelection = (ListView) inflate.findViewById(R.id.listView);
+        String[] languages = getActivity().getResources().getStringArray(R.array.menu_language);
+        ArrayAdapter<String> adapter = new ArrayAdapter<String>(getActivity(), android.R.layout.simple_list_item_1, languages);
+        languageSelection.setAdapter(adapter);
+        languageSelection.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+
+            @Override
+            public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+                TextView textView = (TextView) view;
+                Toast.makeText(getActivity(), textView.getText(), Toast.LENGTH_SHORT).show();
+            }
+        });
+        return inflate;
+    }
+
+    @Override
+    public void onActivityCreated(Bundle savedInstanceState) {
+        super.onActivityCreated(savedInstanceState);
     }
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         mUserLearnedDrawer = Boolean.valueOf(readPreferences(getActivity(), USER_LEARNED_DRAWER, "false"));
-        languageSelection = (ListView) getActivity().findViewById(R.id.listView);
-        String[] langaues = getActivity().getResources().getStringArray(R.array.menu_language);
-        ArrayAdapter<String> adapter = new ArrayAdapter<String>(getActivity(), android.R.layout.simple_list_item_1, langaues);
+
+
     }
 
     public void setUp(int ViewId, DrawerLayout drawerLayout, final Toolbar toolbar) {
