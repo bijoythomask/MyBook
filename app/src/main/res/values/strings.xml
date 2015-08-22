@@ -1,0 +1,17 @@
+<resources>
+    <string name="app_name">MyBook</string>
+    <string name="title_activity_my_book">MyBook</string>
+    <string name="hello_world">Hello world!</string>
+    <string name="action_settings">Settings</string>
+    <string name="drawer_open">Drawer Open</string>
+    <string name="drawer_close">Drawer close</string>
+
+    <array name="menu_language">
+        <item>English</item>
+        <item>Malayalam</item>
+        <item>Tamil</item>
+        <item>Hindi</item>
+        <item>Telugu</item>
+        <item>Kannada</item>
+    </array>
+</resources>
