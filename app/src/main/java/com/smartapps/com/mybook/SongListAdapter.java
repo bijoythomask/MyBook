@@ -7,7 +7,6 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
 
-import java.util.Collection;
 import java.util.Collections;
 import java.util.List;
 
@@ -22,7 +21,7 @@ public class SongListAdapter extends RecyclerView.Adapter<SongListAdapter.SongIn
 
     public SongListAdapter(Context context, List<SongInfo> data) {
         inflater = LayoutInflater.from(context);
-        data = data;
+        this.data = data;
     }
 
     @Override
@@ -39,7 +38,7 @@ public class SongListAdapter extends RecyclerView.Adapter<SongListAdapter.SongIn
     public void onBindViewHolder(SongInfoViewHolder holder, int position) {
 
         SongInfo info = data.get(position);
-        holder.songNumber.setText(info.songNumber);
+        holder.songNumber.setText(Integer.toString(info.songNumber));
         holder.songTitle.setText(info.songTitle);
 
     }
@@ -56,7 +55,7 @@ public class SongListAdapter extends RecyclerView.Adapter<SongListAdapter.SongIn
 
         public SongInfoViewHolder(View itemView) {
             super(itemView);
-            songNumber = (TextView) itemView.findViewById(R.id.songTitle);
+            songNumber = (TextView) itemView.findViewById(R.id.songNumber);
             songTitle = (TextView) itemView.findViewById(R.id.songTitle);
         }
     }

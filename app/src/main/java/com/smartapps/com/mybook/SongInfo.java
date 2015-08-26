@@ -10,4 +10,10 @@ public class SongInfo {
 
     String songTitle;
 
+    public SongInfo(int songNumber, String songTitle) {
+
+        this.songTitle = songTitle;
+        this.songNumber = songNumber;
+
+    }
 }

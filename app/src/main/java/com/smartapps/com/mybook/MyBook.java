@@ -5,10 +5,15 @@ import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.ActionBarActivity;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
+import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.Toolbar;
 import android.view.Menu;
 import android.view.MenuItem;
+
+import java.util.ArrayList;
+import java.util.List;
+import java.util.zip.Inflater;
 
 
 public class MyBook extends AppCompatActivity {
@@ -17,19 +22,23 @@ public class MyBook extends AppCompatActivity {
 
     private RecyclerView songList;
 
+    private SongListAdapter adapter;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_mybook);
         toolbar = (Toolbar) findViewById(R.id.app_bar);
-
         setSupportActionBar(toolbar);
 
-        songList = (RecyclerView) findViewById(R.id.songsList);
-
         NavigationDrawerFragment navigationDrawerFragment = (NavigationDrawerFragment) getSupportFragmentManager().findFragmentById(R.id.fragment_navigation_drawer);
-
         navigationDrawerFragment.setUp(R.id.fragment_navigation_drawer, (DrawerLayout) findViewById(R.id.drawer_layout), toolbar);
+
+        songList = (RecyclerView) findViewById(R.id.songsList);
+        adapter = new SongListAdapter(this, getData());
+        songList.setAdapter(adapter);
+        songList.setLayoutManager(new LinearLayoutManager(this));
+
     }
 
     @Override
@@ -52,5 +61,19 @@ public class MyBook extends AppCompatActivity {
         }
 
         return super.onOptionsItemSelected(item);
+    }
+
+    private List<SongInfo> getData() {
+
+        List<SongInfo> songsList = new ArrayList<>();
+
+        String[] songArray = {"Who Am I Lyrics", "You Are My King (Amazing Love) Lyrics", "By His Wounds Lyrics", "God of Wonders Lyrics", "I Can Only Imagine Lyrics",
+                "Breathe Lyrics"};
+        int count = 0;
+        for (String song : songArray) {
+            songsList.add(new SongInfo(count++, song));
+        }
+
+        return songsList;
     }
 }
