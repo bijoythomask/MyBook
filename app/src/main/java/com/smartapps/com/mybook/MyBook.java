@@ -10,6 +10,8 @@ import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.Toolbar;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.view.View;
+import android.widget.Toast;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -24,9 +26,13 @@ public class MyBook extends AppCompatActivity {
 
     private SongListAdapter adapter;
 
+    private Activity activity;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+
+        activity = this;
         setContentView(R.layout.activity_mybook);
         toolbar = (Toolbar) findViewById(R.id.app_bar);
         setSupportActionBar(toolbar);
@@ -38,6 +44,17 @@ public class MyBook extends AppCompatActivity {
         adapter = new SongListAdapter(this, getData());
         songList.setAdapter(adapter);
         songList.setLayoutManager(new LinearLayoutManager(this));
+        songList.addOnItemTouchListener(new SongListTouchListener(this, songList, new ClickListener() {
+            @Override
+            public void onLongPress(View child, int childPosition) {
+                Toast.makeText(activity, "On long press  " + childPosition, Toast.LENGTH_SHORT).show();
+            }
+
+            @Override
+            public void onClick(View child, int childPosition) {
+                Toast.makeText(activity, "On click " + childPosition, Toast.LENGTH_SHORT).show();
+            }
+        }));
 
     }
 
